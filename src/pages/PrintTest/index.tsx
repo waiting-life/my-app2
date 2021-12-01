@@ -4,28 +4,89 @@ import { getLodop } from '../../js/LodopFuncs.js';
 function PrintTest() {
   const handleClick = () => {
     let LODOP = getLodop(); //调用getLodop获取LODOP对象
-    // LODOP.PRINT_INIT('');
-    // LODOP.ADD_PRINT_TEXT(50, 231, 260, 39, '打印内容');
-    // LODOP.PRINT();
-
-    //打印初始化
+    // 打印初始化
     LODOP.PRINT_INIT('');
-    //设置纸张类型，打印风格等
-    LODOP.SET_PRINT_PAGESIZE(1, 0, 0, 'A5');
-    LODOP.SET_PRINT_STYLE('Stretch', 2);
-    LODOP.ADD_PRINT_TEXT(50, 231, 260, 39, '打印内容');
-    //设置边距，传入待打印图片的base64编码
-    // LODOP.ADD_PRINT_IMAGE("0mm","0mm","RightMargin:0mm","BottomMargin:0mm",dataUrl);
+    // 高度和打印内容自适应
+    LODOP.SET_PRINT_PAGESIZE(3, 1200, 160);
+    // 获取打印的元素
+    LODOP.ADD_PRINT_HTM(
+      '0%',
+      '0%',
+      '100%',
+      '100%',
+      document.querySelector('.print')?.innerHTML,
+    );
     //设置对后台打印状态进行捕获
     LODOP.SET_PRINT_MODE('CATCH_PRINT_STATUS', true);
     //打印
-    var prt = LODOP.PRINT();
+    const prt = LODOP.PRINT();
     //返回jobId
     return prt;
   };
   return (
     <div>
       <button onClick={handleClick}>点击按钮打印</button>
+      <div className="print">
+        <div
+          style={{
+            width: '200pt',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            margin: '0 auto',
+          }}
+        >
+          <div
+            style={{
+              width: '100pt',
+              padding: '2pt 5pt',
+              fontSize: '15pt',
+              backgroundColor: '#000',
+              fontWeight: 500,
+              textAlign: 'center',
+              borderRadius: '10pt',
+              color: '#fff',
+            }}
+          >
+            取餐号 22
+          </div>
+          {['烤鱼', '土豆片', '雪糕', '可乐', '芒果', '米饭'].map(
+            (item, index) => {
+              return (
+                <div
+                  style={{
+                    width: '160pt',
+                    marginTop: '5pt',
+                    fontSize: '12pt',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  }}
+                  key={item}
+                >
+                  <div>{item}</div>
+                  <div>{`x${index + 1}`}</div>
+                </div>
+              );
+            },
+          )}
+
+          <div
+            style={{
+              marginTop: '12pt',
+              width: '160pt',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            -------------------------------------------
+          </div>
+
+          <div style={{ marginTop: '12pt', fontSize: '12pt' }}>
+            <div>预定人: ********6931</div>
+            <div>预定时间: 2021-11-25 22:22:22</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import Child from './components/Child';
 import ExpensiveTree from './components/ExpensiveTree';
 import moment from 'moment';
 import Holidays from 'date-holidays';
+import { usePrint } from '@/utils/usePrint';
 
 // state = 2;
 
@@ -20,6 +21,7 @@ export default function Test() {
   //   },
   //   [a, b, c, d],
   // )
+  const { handlePrint } = usePrint();
 
   const [s, setS] = useState(1);
   const [count, setCount] = useState(0);
@@ -153,6 +155,7 @@ export default function Test() {
       <div>{myAdd(1, 2)}</div>
       <div>{A(22, 22)}</div>
       <div>{loggingIdentity([123])}</div>
+      <button onClick={handlePrint}>测试打印</button>
     </>
   );
 }
