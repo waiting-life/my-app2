@@ -7,3 +7,4 @@ console.log('测试分支合并')
 function testNoff() {
     console.log('--no-ff')
 }
+testNoff()
